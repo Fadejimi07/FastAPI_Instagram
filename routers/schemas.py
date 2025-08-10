@@ -18,7 +18,7 @@ class UserBase(BaseModel):
     password: str
 
 
-class UserDisplay(UserBase):
+class UserDisplay(BaseModel):
     username: str
     email: str
     posts: List["Post"] = []

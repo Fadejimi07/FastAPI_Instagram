@@ -19,11 +19,13 @@ def create_user(db: Session, request: UserBase):
         raise HTTPException(status_code=400, detail="User creation failed")
     return new_user
 
+
 def get_all_users(db: Session):
     users = db.query(DbUser).all()
     if not users:
         raise HTTPException(status_code=404, detail="No users found")
     return users
+
 
 def get_user(db: Session, user_id: int):
     user = db.query(DbUser).filter(DbUser.id == user_id).first()
