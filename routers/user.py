@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from auth import oauth2
 from db.database import get_db
 from db import db_user
 from routers.schemas import (
     UserBase,
     UserDisplay,
 )  # Adjust the import path as needed
+from auth.oauth2 import get_current_user
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -16,7 +18,9 @@ def create_user(request: UserBase, db: Session = Depends(get_db)):
 
 
 @router.get("/", response_model=list[UserDisplay])
-def get_all_users(db: Session = Depends(get_db)):
+def get_all_users(
+    db: Session = Depends(get_db), current_user=Depends(get_current_user)
+):
     return db_user.get_all_users(db)
 
 
