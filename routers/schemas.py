@@ -35,6 +35,7 @@ class User(BaseModel):
         from_attributes = True
 
 
+
 class PostBase(BaseModel):
     title: str
     content: str
